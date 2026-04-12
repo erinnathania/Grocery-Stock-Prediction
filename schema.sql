@@ -24,7 +24,6 @@ SET Last_Order_Date = STR_TO_DATE(Last_Order_Date, '%m/%d/%Y');
 UPDATE grocery_inventory.inventory
 SET Expiration_Date = STR_TO_DATE(Expiration_Date, '%m/%d/%Y');
 
--- Step 2: Change the column types from text to DATE
 ALTER TABLE grocery_inventory.inventory
 MODIFY COLUMN Date_Received DATE;
 
