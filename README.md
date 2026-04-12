@@ -12,8 +12,8 @@ Overstocking ties up capital and leads to waste. Understocking means lost sales 
 |---|----------|----------------|
 | 1 | Which products are currently below their reorder level? | Identifies items at immediate risk of running out |
 | 2 | Which products are overstocked relative to their sales volume? | Flags capital tied up in slow-moving inventory |
-| 3 | Which items are expiring soon but still have high stock? | Prevents waste and financial loss |
-| 4 | Which product categories have the most backordered items? | Reveals supply chain weak points by category |
+| 3 | Which items are expiring soon but still have high stock? | Prevents waste and financial loss | **Lets say now february 2024**
+| 4 | Which product categories have the most backordered items? | Reveals supply chain weak points by category | 
 | 5 | Which suppliers are linked to the most stockouts or backordered products? | Helps evaluate supplier reliability |
 | 6 | What is the average inventory turnover rate per category? | Measures how efficiently each category sells |
 | 7 | Which products have never been restocked (Last Order Date is old)? | Uncovers neglected or forgotten inventory |
@@ -29,7 +29,7 @@ Overstocking ties up capital and leads to waste. Understocking means lost sales 
 |--------|-------------|
 | `Product_ID` | Unique identifier for each product |
 | `Product_Name` | Name of the grocery item |
-| `Catagory` | Product category (e.g., Dairy, Beverages, Grains & Pulses) |
+| `Category` | Product category (e.g., Dairy, Beverages, Grains & Pulses) |
 | `Supplier_ID` | Unique identifier for the supplier |
 | `Supplier_Name` | Name of the supplying company |
 | `Stock_Quantity` | Current units in stock |
@@ -44,7 +44,7 @@ Overstocking ties up capital and leads to waste. Understocking means lost sales 
 | `Inventory_Turnover_Rate` | How frequently stock is sold and replaced |
 | `Status` | Current product status: Active, Backordered, or Discontinued |
 
-> Note: The `Catagory` column name is a typo present in the original dataset and is preserved as-is.
+> Note: The `Category` column name is a typo present in the original dataset and is preserved as-is.
 
 ---
 
@@ -69,43 +69,29 @@ Grocery Stock Prediction/
 └── README.md                                 # Project documentation
 ```
 
----
-
-## How to Run This Project
-
-### 1. Prerequisites
-- MySQL Server installed (version 8.x recommended)
-- MySQL Workbench installed
-
-### 2. Set Up the Database
-```sql
-CREATE DATABASE grocery_inventory;
-USE grocery_inventory;
-```
-
-### 3. Import the Dataset
-Use the **Table Data Import Wizard** in MySQL Workbench:
-- Right-click your schema → **Table Data Import Wizard**
-- Select `Grocery_Inventory_and_Sales_Dataset.csv`
-- Let MySQL auto-detect column types, then confirm
-
-### 4. Run the Queries
-Open `analysis.sql` in MySQL Workbench and execute the queries to explore the business insights.
-
----
-
 ## Key Findings
+1. `Bananas` have the highest have the highest `Capital_Tied_Up at $2,067.03` and despite the low `Inventory_Turnover_Rate` it has overloaded stock compared to its sales volume. 
+  - The grocery business should stop or reduce banana reorders immediately, run a promotion or discount to sell existing stock before it expires
 
-> This section will be updated as analysis is completed.
+2. The 10 `Product_Name` and `Product_ID` with closest expiry date from `February 2024` is below:
+  - Bread Flour (67-710-5120)
+  - Chocolate Biscuit (20-0540-3716)
+  - Cheddar Cheese (60-456-8169)
+  - Robusta Coffee (92-455-2959)
+  - Salmon (50-930-4751)
+  - Pomegranate (62-822-5278)
+  - Evaporated Milk (18-107-7886)
+  - Evaporated Milk (96-209-1739)
+  - Wild Rice (06-340-6856)
+  - Mozzarella Cheese (83-400-9746)
 
-- TBD: Products currently below reorder level
-- TBD: Categories most at risk of stockouts
-- TBD: Estimated revenue at risk from understocked items
+3. `Greek Yogurt (68-734-1585)` has the highest potential waste_loss with a close expiry date at `2024-07-13`.
+  - The grocery store should handle this by offering discounts, promotions or use marketing strategies (such as putting it in high-visibility areas or bundling it with complementary items) to sell it as soon as possible.
+  - Future order quantities should also be reduced to adjust with its demand rate.
 
 ---
 
 ## Author
-
 **Erinnathania**
-- Project Type: Beginner SQL Portfolio Project
+- Project Type: SQL Data Analysis Project
 - Domain: Inventory Management / Supply Chain Analytics
