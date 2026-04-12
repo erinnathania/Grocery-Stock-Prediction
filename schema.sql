@@ -14,3 +14,22 @@ SET Unit_Price = TRIM(REPLACE(Unit_Price, '$', ''));
 
 ALTER TABLE grocery_inventory.inventory
 MODIFY COLUMN Unit_Price DECIMAL(10,2);
+
+UPDATE grocery_inventory.inventory
+SET Date_Received = STR_TO_DATE(Date_Received, '%m/%d/%Y');
+
+UPDATE grocery_inventory.inventory
+SET Last_Order_Date = STR_TO_DATE(Last_Order_Date, '%m/%d/%Y');
+
+UPDATE grocery_inventory.inventory
+SET Expiration_Date = STR_TO_DATE(Expiration_Date, '%m/%d/%Y');
+
+-- Step 2: Change the column types from text to DATE
+ALTER TABLE grocery_inventory.inventory
+MODIFY COLUMN Date_Received DATE;
+
+ALTER TABLE grocery_inventory.inventory
+MODIFY COLUMN Last_Order_Date DATE;
+
+ALTER TABLE grocery_inventory.inventory
+MODIFY COLUMN Expiration_Date DATE;
