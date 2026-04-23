@@ -14,9 +14,10 @@ Overstocking ties up capital and leads to waste. Understocking means lost sales 
 | 2 | Which products are overstocked relative to their sales volume? | Flags capital tied up in slow-moving inventory |
 | 3 | Which items are expiring soon but still have high stock? | Prevents waste and financial loss | **Lets say now february 2024**
 | 4 | Which suppliers are linked to the most stockouts or backordered products? | Helps evaluate supplier reliability |
-| 5 | What is the average inventory turnover rate per category? | Measures how efficiently each category sells |
-| 6 | Which products have never been restocked (Last Order Date is old)? | Uncovers neglected or forgotten inventory |
-| 7 | What is the | Quantifies lost revenue in dollar terms |
+| 5 | How long does each supplier take to deliver? Which ones are slowest? | Determines when to place orders — if a supplier takes 60 days but stock runs out in 30, you're already too late |
+| 6 | Which products will expire before they sell out? | Catches waste before it happens — proactive instead of reactive |
+| 7 | Which products generate the most vs least revenue? | Tells you which products are worth restocking and which aren't worth the shelf space |
+| 8 | Full restock priority list — combining stock level, sales speed, expiry, and supplier reliability | The final deliverable — one table a manager can open every morning and know exactly what to do |
 
 ---
 

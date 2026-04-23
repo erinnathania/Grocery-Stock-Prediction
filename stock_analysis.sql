@@ -72,3 +72,29 @@ WHERE Status != 'Discontinued'
 GROUP BY Supplier_Name
 HAVING COUNT(*) >= 2
 ORDER BY Backorder_Rate DESC;
+
+#Finds which item going to sold out before reordered
+SELECT 
+    Product_Name,
+    Category,
+    Stock_Quantity,
+    Sales_Volume,
+    ROUND(Stock_Quantity / (Sales_Volume / 365), 0) AS Days_Until_Stockout,
+    Supplier_Name
+FROM grocery_inventory.inventory
+WHERE Status = 'Active'
+  AND Sales_Volume > 0
+ORDER BY Days_Until_Stockout ASC;
+
+#Find slowest supplier
+SELECT 
+    Supplier_Name,
+    COUNT(*) AS Total_Products,
+    ROUND(AVG(DATEDIFF(Date_Received, Last_Order_Date)), 0) AS Avg_Delivery_Days,
+    MAX(DATEDIFF(Date_Received, Last_Order_Date)) AS Slowest_Delivery,
+    MIN(DATEDIFF(Date_Received, Last_Order_Date)) AS Fastest_Delivery
+FROM grocery_inventory.inventory
+WHERE Status IN ('Active', 'Backordered')
+GROUP BY Supplier_Name
+HAVING COUNT(*) >= 2
+ORDER BY Avg_Delivery_Days DESC;
