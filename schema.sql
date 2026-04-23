@@ -32,3 +32,6 @@ MODIFY COLUMN Last_Order_Date DATE;
 
 ALTER TABLE grocery_inventory.inventory
 MODIFY COLUMN Expiration_Date DATE;
+
+SELECT * 
+FROM grocery_inventory.inventory;
