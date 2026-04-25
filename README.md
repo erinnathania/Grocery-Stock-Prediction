@@ -59,8 +59,8 @@ Overstocking ties up capital and leads to waste. Understocking means lost sales 
 Grocery Stock Prediction/
 │
 ├── Grocery_Inventory_and_Sales_Dataset.csv   # Raw dataset
-├── schema.sql                                # Table creation script
-├── stock_analysis.sql                              # All analysis queries
+├── schema.sql                                # Table creation and data cleaning
+├── stock_analysis.sql                        # All analysis queries
 └── README.md                                 # Project documentation
 ```
 
