@@ -1,13 +1,11 @@
 # Grocery Inventory & Restock Prediction — SQL Analysis
 
 ## Project Overview
-
 Overstocking ties up capital and leads to waste. Understocking means lost sales and unhappy customers. This project uses SQL to analyze a grocery inventory dataset and surface actionable insights that help operations teams know **exactly when and what to restock** — before it becomes a problem.
 
 ---
 
 ## Business Questions Answered
-
 | # | Question | Why It Matters |
 |---|----------|----------------|
 | 1 | Which products are currently below their reorder level, how many units short, and what's the restock cost? | Identifies items at immediate risk of running out and estimates the cost to fix it |
@@ -15,9 +13,8 @@ Overstocking ties up capital and leads to waste. Understocking means lost sales 
 | 3 | Which items are expiring soon but still have high stock? | Prevents waste and financial loss | **Lets say now february 2024**
 | 4 | Which suppliers are linked to the most stockouts or backordered products? | Helps evaluate supplier reliability |
 | 5 | How long does each supplier take to deliver? Which ones are slowest? | Determines when to place orders — if a supplier takes 60 days but stock runs out in 30, you're already too late |
-| 6 | Which products will expire before they sell out? | Catches waste before it happens — proactive instead of reactive |
-| 7 | Which products generate the most vs least revenue? | Tells you which products are worth restocking and which aren't worth the shelf space |
-| 8 | Full restock priority list — combining stock level, sales speed, expiry, and supplier reliability | The final deliverable — one table a manager can open every morning and know exactly what to do |
+
+| Summary | For each product, what is the stock status, supplier status? Which are critical, low risk or high risk? |
 
 ---
 
@@ -63,7 +60,7 @@ Grocery Stock Prediction/
 │
 ├── Grocery_Inventory_and_Sales_Dataset.csv   # Raw dataset
 ├── schema.sql                                # Table creation script
-├── analysis.sql                              # All analysis queries
+├── stock_analysis.sql                              # All analysis queries
 └── README.md                                 # Project documentation
 ```
 
@@ -99,11 +96,16 @@ Grocery Stock Prediction/
    - These suppliers are a direct cause of understocking — the business can have a perfect restock plan, but it means nothing if the supplier can't deliver.
    - Action needed: Immediately find alternative suppliers for these products, or renegotiate delivery terms with penalties for failed orders.
 
-5. 
-
----
-
-## Author
-**Erinnathania**
-- Project Type: SQL Data Analysis Project
-- Domain: Inventory Management / Supply Chain Analytics
+5. 5 Active products will run out within 50 days at current sales rate: 
+   `Plum` (41 days), `Black Coffee` (45), `Long Grain Rice` (46), 
+   `Haddock` (47), `Sour Cream` (48).
+   - These need immediate reordering before shelves go empty.
+   - Meanwhile, `Salmon` has 1,704 days of stock remaining 
+     — nearly 5 years worth, indicating a severe overstock.
+   - Multiple suppliers show negative delivery days, meaning orders 
+     have been placed but products haven't arrived yet — these 
+     suppliers need follow-up.
+     **Avg_Delivery_Days** indicate:
+     Low positive (e.g. 5-30):	Delivered quickly
+     High positive (e.g. 200+):	Delivered but took long tme
+     Negative: New order placed, still waiting for delivery  
