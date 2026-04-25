@@ -98,3 +98,45 @@ WHERE Status IN ('Active', 'Backordered')
 GROUP BY Supplier_Name
 HAVING COUNT(*) >= 2
 ORDER BY Avg_Delivery_Days DESC;
+
+#Summary
+SELECT 
+    Product_Name,
+    Category,
+    Stock_Quantity,
+    Reorder_Level,
+    Sales_Volume,
+    Supplier_Name,
+    Expiration_Date,
+    DATEDIFF(Date_Received, Last_Order_Date) AS Delivery_Days,
+
+    CASE 
+        WHEN Stock_Quantity < Reorder_Level THEN 'Understocked'
+        WHEN Stock_Quantity > Sales_Volume AND Inventory_Turnover_Rate < 30 THEN 'Overstocked'
+        ELSE 'Balanced'
+    END AS Stock_Label,
+
+    CASE 
+        WHEN Expiration_Date < '2024-02-01' THEN 'Already Expired'
+        WHEN DATEDIFF(Expiration_Date, '2024-02-01') < 90 THEN 'Expiring Soon'
+        WHEN DATEDIFF(Expiration_Date, '2024-02-01') < 180 THEN 'Expiring Later'
+        ELSE 'Safe'
+    END AS Expiry_Label,
+
+    CASE 
+        WHEN DATEDIFF(Date_Received, Last_Order_Date) < 0 THEN 'Pending Delivery'
+        WHEN DATEDIFF(Date_Received, Last_Order_Date) <= 60 THEN 'Reliable'
+        WHEN DATEDIFF(Date_Received, Last_Order_Date) <= 150 THEN 'Slow'
+        ELSE 'Very Slow'
+    END AS Supplier_Label,
+
+    CASE 
+        WHEN Sales_Volume = 0 THEN 'No Sales Data'
+        WHEN ROUND(Stock_Quantity / (Sales_Volume / 365), 0) < 60 THEN 'Critical'
+        WHEN ROUND(Stock_Quantity / (Sales_Volume / 365), 0) < 120 THEN 'Low'
+        ELSE 'Sufficient'
+    END AS Stockout_Label
+
+FROM grocery_inventory.inventory
+WHERE Status != 'Discontinued'
+ORDER BY Expiration_Date ASC;
